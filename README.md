@@ -473,3 +473,19 @@ Production concerns such as enterprise workspace security, CI/CD automation, rea
 The final result is an end-to-end Microsoft Fabric sales analytics solution that starts with multiple simulated operational systems and finishes with a validated analytical model and interactive Power BI report.
 
 The project combines **data engineering, data modeling, validation, and reporting** in one workflow rather than treating the dashboard as an isolated deliverable.
+
+## Development Workflow
+
+The project was developed using a combination of Fabric-native development and AI-assisted tooling.
+
+### Tools and Practices
+
+- **Microsoft Fabric** — Lakehouse, notebooks, Delta tables, semantic model, and Direct Lake reporting.
+- **Fabric skills** — used to support development and investigation of Fabric-specific implementation details.
+- **Claude Code** — used to audit notebook structure and documentation and help identify inconsistencies without changing the project logic blindly.
+- **Microsoft Power BI MCP** — used to work with and inspect Power BI-related project components.
+- **TMDL** — used to inspect and edit semantic-model metadata directly.
+
+A key part of the workflow was **verify rather than blindly accept**. Changes were tested in the actual Fabric environment to observe their effect.
+
+For example, when adding `MonthShort` to the Calendar table, the TMDL definition was updated directly, the model was refreshed, and the resulting behavior was checked in the report. This provided practical experience with how semantic-model metadata changes affect the reporting layer.

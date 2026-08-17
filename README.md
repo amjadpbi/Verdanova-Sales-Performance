@@ -1,3 +1,8 @@
+<img width="1037" height="600" alt="image" src="https://github.com/user-attachments/assets/789e032c-08dc-4580-9d91-fb303de03bef" />
+
+
+
+
 # Verdanova Sales Performance
 
 An end-to-end **Microsoft Fabric Lakehouse** project for transforming multi-source operational data into a validated analytical model and Power BI report.

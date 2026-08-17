@@ -1,5 +1,6 @@
 <img width="1037" height="600" alt="image" src="https://github.com/user-attachments/assets/789e032c-08dc-4580-9d91-fb303de03bef" />
 
+<img width="1536" height="1024" alt="Verdanova" src="https://github.com/user-attachments/assets/171c4bb0-7d12-49e2-81dc-9623f2b15199" />
 
 
 

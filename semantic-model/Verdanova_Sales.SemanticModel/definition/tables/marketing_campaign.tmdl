@@ -1,0 +1,128 @@
+table marketing_campaign
+	lineageTag: adb69dae-5fc8-4e2b-853f-abdf13e4b9eb
+	sourceLineageTag: [dbo].[marketing_campaign]
+
+	measure 'Marketing Revenue' =
+			
+			SUM('marketing_campaign'[RevenueGenerated])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 99a84f99-b529-47f7-aacf-ac476fa5b338
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	column CampaignID
+		dataType: string
+		lineageTag: 4522923e-8ad5-4e51-8727-3b875295e8f2
+		sourceLineageTag: CampaignID
+		summarizeBy: none
+		sourceColumn: CampaignID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignName
+		dataType: string
+		lineageTag: 1551f36e-3430-473a-b265-c54e5248fffb
+		sourceLineageTag: CampaignName
+		summarizeBy: none
+		sourceColumn: CampaignName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CampaignDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1e8f3949-2aff-4357-a990-885b5335e051
+		sourceLineageTag: CampaignDate
+		summarizeBy: none
+		sourceColumn: CampaignDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Platform
+		dataType: string
+		lineageTag: bb9de0f7-e842-4899-9820-c5810b2f7688
+		sourceLineageTag: Platform
+		summarizeBy: none
+		sourceColumn: Platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategory
+		dataType: string
+		lineageTag: 3773cf7a-8773-4344-8d01-3de181701bd7
+		sourceLineageTag: ProductCategory
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Impressions
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a920646-d8f3-4f49-9e8b-1789bef49c55
+		sourceLineageTag: Impressions
+		summarizeBy: sum
+		sourceColumn: Impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Clicks
+		dataType: int64
+		formatString: 0
+		lineageTag: 216407ff-a2fe-432f-8680-45a2e95ff130
+		sourceLineageTag: Clicks
+		summarizeBy: sum
+		sourceColumn: Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conversions
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d8567e6-2998-4e68-b8dc-a09915f55c8c
+		sourceLineageTag: Conversions
+		summarizeBy: sum
+		sourceColumn: Conversions
+
+		annotation SummarizationSetBy = Automatic
+
+	column Spend
+		dataType: double
+		lineageTag: 44ae220f-bc27-41cd-b4a5-9271f48922f3
+		sourceLineageTag: Spend
+		summarizeBy: sum
+		sourceColumn: Spend
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RevenueGenerated
+		dataType: double
+		lineageTag: 08af2427-c56b-4a20-ba5a-95043ef39d64
+		sourceLineageTag: RevenueGenerated
+		summarizeBy: sum
+		sourceColumn: RevenueGenerated
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Region
+		dataType: string
+		lineageTag: 766e7e29-f8da-400f-99ad-5b97fe21da56
+		sourceLineageTag: Region
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition marketing_campaign = entity
+		mode: directLake
+		source
+			entityName: marketing_campaign
+			schemaName: dbo
+			expressionSource: 'DirectLake - Verdanova_Sales_Lakehouse'
+

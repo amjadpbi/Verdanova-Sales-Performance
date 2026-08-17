@@ -1,0 +1,124 @@
+table salestarget
+	lineageTag: 5869a236-36ee-406b-87d5-390d4d215846
+	sourceLineageTag: [dbo].[salestarget]
+
+	measure 'Sales Target' =
+			
+			CALCULATE(
+			    SUM('salestarget'[SalesTarget]),
+			    TREATAS(
+			        VALUES('calendar'[YearMonthKey]),
+			        'salestarget'[YearMonthKey]
+			    ),
+			    TREATAS(
+			        VALUES('regions'[Region]),
+			        'salestarget'[Region]
+			    ),
+			    TREATAS(
+			        VALUES('category'[Category]),
+			        'salestarget'[ProductCategory]
+			    )
+			)
+		lineageTag: 75098625-2cef-46cb-9dee-797501514b00
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Variance' =
+			
+			[Total Sales] - [Sales Target]
+		lineageTag: 6315fbe5-5766-4451-907f-f997c28646a2
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Achievement %' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Sales Target]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: bc3e3b20-95b1-4d91-add6-73d96e90d781
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	column TargetID
+		dataType: string
+		lineageTag: 835ff7f9-228f-49c2-aa0e-51a0ae863952
+		sourceLineageTag: TargetID
+		summarizeBy: none
+		sourceColumn: TargetID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 460fa005-1ca5-4f57-83fd-945f41dfdfa5
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ad04c40-1cd4-45d1-a736-927f0cbec448
+		sourceLineageTag: Month
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 7fafc761-e834-440d-972e-b1bd8522d3a4
+		sourceLineageTag: Region
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategory
+		dataType: string
+		lineageTag: cc0f7a21-7258-4041-8525-21f4e7fe9d6e
+		sourceLineageTag: ProductCategory
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTarget
+		dataType: double
+		lineageTag: 8749dc9b-cdad-4a1a-bd34-2f4b50f00721
+		sourceLineageTag: SalesTarget
+		summarizeBy: sum
+		sourceColumn: SalesTarget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column YearMonthKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f2e956a-d27f-4bc1-8358-d09247b8ce5c
+		sourceLineageTag: YearMonthKey
+		summarizeBy: count
+		sourceColumn: YearMonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition salestarget = entity
+		mode: directLake
+		source
+			entityName: salestarget
+			schemaName: dbo
+			expressionSource: 'DirectLake - Verdanova_Sales_Lakehouse'
+

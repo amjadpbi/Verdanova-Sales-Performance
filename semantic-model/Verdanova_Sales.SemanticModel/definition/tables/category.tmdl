@@ -1,0 +1,20 @@
+table category
+	lineageTag: b8dd6d92-2a9e-443f-8da7-ab977c7e3244
+	sourceLineageTag: [dbo].[category]
+
+	column Category
+		dataType: string
+		lineageTag: 4fda5622-5737-4842-829d-e0df5efe7229
+		sourceLineageTag: Category
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition category = entity
+		mode: directLake
+		source
+			entityName: category
+			schemaName: dbo
+			expressionSource: 'DirectLake - Verdanova_Sales_Lakehouse'
+

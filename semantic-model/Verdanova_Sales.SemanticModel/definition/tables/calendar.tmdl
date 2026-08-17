@@ -1,0 +1,104 @@
+table calendar
+	lineageTag: 28632323-a022-4145-98a1-7d9c5efc10c8
+	sourceLineageTag: [dbo].[calendar]
+	dataCategory: Time
+
+	measure 'Selected Date Range' =
+			
+			VAR MinDate =
+			    MINX(
+			        ALLSELECTED('calendar'[Date]),
+			        'calendar'[Date]
+			    )
+			VAR MaxDate =
+			    MAXX(
+			        ALLSELECTED('calendar'[Date]),
+			        'calendar'[Date]
+			    )
+			RETURN
+			    "Data from "
+			        & FORMAT(MinDate, "d MMM yyyy")
+			        & " to "
+			        & FORMAT(MaxDate, "d MMM yyyy")
+		lineageTag: 0cc13a1e-51e8-45df-9a3d-d3ac8552430a
+
+		changedProperty = Name
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: General Date
+		lineageTag: 14917fc1-1e8b-435b-b1b4-63e0cfd62642
+		sourceLineageTag: Date
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: a87c5d91-2965-4f4e-aa62-5b5fc18a95dd
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 8af4ea87-9393-4a93-9537-3e3822808675
+		sourceLineageTag: Quarter
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 39f9b604-b7a6-4a0e-acdd-49b604e79112
+		sourceLineageTag: MonthNumber
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: bf9ea653-eb17-43c3-ba75-ccaa4dabbd3c
+		sourceLineageTag: MonthName
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c1c091f-4fb3-49f4-8c6d-b7d782a07157
+		sourceLineageTag: Day
+		summarizeBy: sum
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonthKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c2c36173-7a95-477f-be00-c89da7ad28cd
+		sourceLineageTag: YearMonthKey
+		summarizeBy: count
+		sourceColumn: YearMonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition calendar = entity
+		mode: directLake
+		source
+			entityName: calendar
+			schemaName: dbo
+			expressionSource: 'DirectLake - Verdanova_Sales_Lakehouse'
+

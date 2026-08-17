@@ -1,0 +1,215 @@
+table sales
+	lineageTag: 1a294a63-a20c-41ca-be22-10c636130b4e
+	sourceLineageTag: [dbo].[sales]
+
+	measure 'Total Sales' =
+			
+			SUM('sales'[LineAmount])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 25fdf305-ae75-47ba-b347-772d0c745bd3
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Total Orders' =
+			
+			DISTINCTCOUNT('sales'[OrderID])
+		formatString: 0
+		lineageTag: cc70b9d3-a6ff-4087-98ee-7549b9a958b3
+
+		changedProperty = Name
+
+	measure Profit =
+			
+			SUMX(
+			    'sales',
+			    'sales'[LineAmount] - ('sales'[Quantity] * 'sales'[CostAtSale])
+			)
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 34babbe2-04c9-4bd7-89fa-f35f5caf4166
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Previous Period Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    DATEADD('calendar'[Date], -1, MONTH)
+			)
+		lineageTag: a82fdc00-c3c9-4d60-9313-dfdb6f4c8b98
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Growth %' =
+			
+			DIVIDE(
+			    [Total Sales] - [Previous Period Sales],
+			    [Previous Period Sales]
+			)
+		lineageTag: 9b53daca-c6f3-4fb6-8c49-74d498b0445d
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Product Sales Rank' =
+			
+			RANKX(
+			    ALL('products'[ProductName]),
+			    [Total Sales],
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 6f4066e1-14bc-4b09-ae24-6c010be752ab
+
+		changedProperty = Name
+
+	measure 'Contribution %' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    CALCULATE(
+			        [Total Sales],
+			        ALLSELECTED('products'[ProductName])
+			    )
+			)
+		lineageTag: 5c88bf91-9fd3-4796-8f88-92bbce466db5
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OrderLineID
+		dataType: string
+		lineageTag: 1e5d23e9-5051-4bfd-9b2f-b3d27b26f244
+		sourceLineageTag: OrderLineID
+		summarizeBy: none
+		sourceColumn: OrderLineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderID
+		dataType: string
+		lineageTag: fa90337e-47bb-4815-a12c-94a55d510ea5
+		sourceLineageTag: OrderID
+		summarizeBy: none
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d88dcff2-d054-4dec-809c-877ad579b4ea
+		sourceLineageTag: OrderDate
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: 737784c4-3e57-462d-84a6-1fa792ae2be6
+		sourceLineageTag: CustomerID
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: 53c13991-ae24-4e7d-95a3-1a88e6ca0b15
+		sourceLineageTag: ProductID
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: d48334d8-ecbc-4571-a67a-bd32620e948e
+		sourceLineageTag: Quantity
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 0ebda61f-5009-47dc-88a6-6d8acb9aad40
+		sourceLineageTag: UnitPrice
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CostAtSale
+		dataType: double
+		lineageTag: 354c6791-0e7e-4240-b7ed-b709afd8e063
+		sourceLineageTag: CostAtSale
+		summarizeBy: sum
+		sourceColumn: CostAtSale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount
+		dataType: double
+		lineageTag: ad8566fd-291d-4cf4-96d6-5376bb62e64c
+		sourceLineageTag: Discount
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LineAmount
+		dataType: double
+		lineageTag: e79acc28-41b6-4125-9b7e-7667a1e53269
+		sourceLineageTag: LineAmount
+		summarizeBy: sum
+		sourceColumn: LineAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Channel
+		dataType: string
+		lineageTag: 7be52b23-96cc-427d-aafd-92405ae2b960
+		sourceLineageTag: Channel
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: fb458d18-1499-48d3-8571-80f209907489
+		sourceLineageTag: Region
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sales = entity
+		mode: directLake
+		source
+			entityName: sales
+			schemaName: dbo
+			expressionSource: 'DirectLake - Verdanova_Sales_Lakehouse'
+

@@ -1,0 +1,40 @@
+relationship 6cf12699-e957-9935-0b17-aa199c42a9d1
+	fromColumn: sales.CustomerID
+	toColumn: customers.CustomerID
+
+relationship 3a99c180-2916-0ce0-6009-af9abda7b897
+	fromColumn: sales.OrderDate
+	toColumn: calendar.Date
+
+relationship be1df978-b07c-0828-00fa-73f66f3c22f9
+	fromColumn: marketing_campaign.CampaignDate
+	toColumn: calendar.Date
+
+relationship 9b870f09-c70d-d27f-14b4-b7336f879d6f
+	fromColumn: products.Category
+	toColumn: category.Category
+
+relationship 91bf1877-1d88-ffbe-9b9c-f31a74d51991
+	fromColumn: marketing_campaign.ProductCategory
+	toColumn: category.Category
+
+relationship da5a3fbe-ccfa-fb2b-9868-1e72642a3ef9
+	fromColumn: salestarget.ProductCategory
+	toColumn: category.Category
+
+relationship b89ae744-2e05-5669-aca7-a1bedd665dfc
+	fromColumn: salestarget.Region
+	toColumn: regions.Region
+
+relationship 86c5ed24-94be-0644-be13-8aef095a34e9
+	fromColumn: sales.ProductID
+	toColumn: products.ProductID
+
+relationship 7106f5e9-65d3-cf7b-20e6-fa6b882f97d9
+	fromColumn: sales.Region
+	toColumn: regions.Region
+
+relationship a93b231d-8ca6-6d6a-c3b3-4f898e0b0296
+	fromColumn: marketing_campaign.Region
+	toColumn: regions.Region
+

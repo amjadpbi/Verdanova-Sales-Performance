@@ -1,0 +1,57 @@
+table customers
+	lineageTag: 3cff1e79-cc69-4e1e-bead-d254b4f14d93
+	sourceLineageTag: [dbo].[customers]
+
+	column CustomerID
+		dataType: string
+		lineageTag: fb0aa7e8-7ffa-4a1f-9dce-e3dc5203c8af
+		sourceLineageTag: CustomerID
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: 60afedcb-f5c2-41e7-8e9f-66e87e41a308
+		sourceLineageTag: CustomerName
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: 4a00c471-0fc1-48c6-8f59-a93029281203
+		sourceLineageTag: Email
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerType
+		dataType: string
+		lineageTag: 32c64f1d-9087-4584-a2c5-85f7dcc9c433
+		sourceLineageTag: CustomerType
+		summarizeBy: none
+		sourceColumn: CustomerType
+
+		annotation SummarizationSetBy = Automatic
+
+	column JoinDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b6bb493b-d953-4085-9464-3bb7f6f51c6d
+		sourceLineageTag: JoinDate
+		summarizeBy: none
+		sourceColumn: JoinDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customers = entity
+		mode: directLake
+		source
+			entityName: customers
+			schemaName: dbo
+			expressionSource: 'DirectLake - Verdanova_Sales_Lakehouse'
+
